@@ -1,0 +1,23 @@
+.top-menu-bar {
+  color: white;
+  background-color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-menu-bar a,
+.top-menu-bar a:visited {
+  color: white;
+  font-size: 0.85em;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.top-menu-bar button {
+  background: none;
+  border: none;
+  outline: none;
+  color: white;
+  cursor: pointer;
+}

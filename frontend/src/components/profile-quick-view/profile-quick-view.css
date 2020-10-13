@@ -1,0 +1,16 @@
+.profile-quick-view {
+  background-color: #ffc;
+  position: absolute;
+  top: 5%;
+  right: 0.5%;
+  padding-right: 15px;
+  color: black;
+  font-size: 0.85em;
+}
+
+.profile-menu-item {
+  cursor: pointer;
+}
+.profile-menu-item:hover {
+  background-color: lightgray;
+}

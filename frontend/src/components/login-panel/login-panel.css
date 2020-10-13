@@ -1,0 +1,44 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+}
+
+.login-panel {
+  border: 1px solid rgb(196, 189, 189);
+  margin-top: 50px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  min-width: 250px;
+  max-height: 30%;
+}
+
+.login-panel h3 {
+  border-bottom: 1px solid gainsboro;
+}
+
+.input-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85em;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.input-row input {
+  max-width: 250px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+}
+
+.register-link {
+  font-size: 0.75em;
+  display: flex;
+  justify-content: center;
+}
