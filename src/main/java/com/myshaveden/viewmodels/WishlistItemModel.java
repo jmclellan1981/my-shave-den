@@ -1,15 +1,35 @@
 package com.myshaveden.viewmodels;
 
-import org.immutables.value.Value;
+public class WishlistItemModel {
+  private ProductModel productModel;
+  private int displayOrder;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+  private WishlistItemModel() {
+  }
 
-@Value.Immutable
-@JsonSerialize(as = ImmutableWishlistItemModel.class)
-@JsonDeserialize(as = ImmutableWishlistItemModel.class)
-public abstract class WishlistItemModel {
-  public abstract ProductModel product();
+  public ProductModel getProduct() {
+    return productModel;
+  }
 
-  public abstract int displayOrder();
+  public int getDisplayOrder() {
+    return displayOrder;
+  }
+
+  public static class Builder {
+    private WishlistItemModel model = new WishlistItemModel();
+
+    public Builder withDisplayOrder(int displayOrder) {
+      model.displayOrder = displayOrder;
+      return this;
+    }
+
+    public Builder withProduct(ProductModel product) {
+      model.productModel = product;
+      return this;
+    }
+
+    public WishlistItemModel build() {
+      return model;
+    }
+  }
 }

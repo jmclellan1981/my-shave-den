@@ -51,15 +51,15 @@ public class DefaultWishlistServiceTest {
   public void testAddWishlistItem() {
     WishlistItemModel wishlistItem = Mockito.mock(WishlistItemModel.class);
     ProductModel productModel = Mockito.mock(ProductModel.class);
-    Mockito.when(productModel.description()).thenReturn("TEST");
-    Mockito.when(productModel.id()).thenReturn(UUID.randomUUID().toString());
-    Mockito.when(productModel.imageSource()).thenReturn("TEST");
-    Mockito.when(productModel.productId()).thenReturn(UUID.randomUUID().toString());
-    Mockito.when(productModel.productType()).thenReturn("TEST");
-    Mockito.when(productModel.site()).thenReturn("TEST");
-    Mockito.when(productModel.title()).thenReturn("TEST");
-    Mockito.when(productModel.url()).thenReturn("TEST");
-    Mockito.when(wishlistItem.product()).thenReturn(productModel);
+    Mockito.when(productModel.getDescription()).thenReturn("TEST");
+    Mockito.when(productModel.getId()).thenReturn(UUID.randomUUID().toString());
+    Mockito.when(productModel.getImageSource()).thenReturn("TEST");
+    Mockito.when(productModel.getProductId()).thenReturn(UUID.randomUUID().toString());
+    Mockito.when(productModel.getProductType()).thenReturn("TEST");
+    Mockito.when(productModel.getSite()).thenReturn("TEST");
+    Mockito.when(productModel.getTitle()).thenReturn("TEST");
+    Mockito.when(productModel.getUrl()).thenReturn("TEST");
+    Mockito.when(wishlistItem.getProduct()).thenReturn(productModel);
     service.addWishListItem(MOCK_USERNAME, wishlistItem);
   }
 
@@ -67,15 +67,15 @@ public class DefaultWishlistServiceTest {
   public void testAddWishlistItem_newProduct() {
     WishlistItemModel wishlistItem = Mockito.mock(WishlistItemModel.class);
     ProductModel productModel = Mockito.mock(ProductModel.class);
-    Mockito.when(productModel.description()).thenReturn("TEST");
-    Mockito.when(productModel.id()).thenReturn(null);
-    Mockito.when(productModel.imageSource()).thenReturn("TEST");
-    Mockito.when(productModel.productId()).thenReturn(UUID.randomUUID().toString());
-    Mockito.when(productModel.productType()).thenReturn("TEST");
-    Mockito.when(productModel.site()).thenReturn("TEST");
-    Mockito.when(productModel.title()).thenReturn("TEST");
-    Mockito.when(productModel.url()).thenReturn("TEST");
-    Mockito.when(wishlistItem.product()).thenReturn(productModel);
+    Mockito.when(productModel.getDescription()).thenReturn("TEST");
+    Mockito.when(productModel.getId()).thenReturn(null);
+    Mockito.when(productModel.getImageSource()).thenReturn("TEST");
+    Mockito.when(productModel.getProductId()).thenReturn(UUID.randomUUID().toString());
+    Mockito.when(productModel.getProductType()).thenReturn("TEST");
+    Mockito.when(productModel.getSite()).thenReturn("TEST");
+    Mockito.when(productModel.getTitle()).thenReturn("TEST");
+    Mockito.when(productModel.getUrl()).thenReturn("TEST");
+    Mockito.when(wishlistItem.getProduct()).thenReturn(productModel);
     service.addWishListItem(MOCK_USERNAME, wishlistItem);
   }
 

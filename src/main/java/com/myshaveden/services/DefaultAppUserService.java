@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 import com.myshaveden.domain.AppUser;
 import com.myshaveden.domain.Wishlist;
 import com.myshaveden.repositories.AppUserRepository;
-import com.myshaveden.viewmodels.ImmutableAppUserModel;
-import com.myshaveden.viewmodels.ImmutableWishlistModel;
+import com.myshaveden.viewmodels.AppUserModel;
 import com.myshaveden.viewmodels.RegistrationRequest;
+import com.myshaveden.viewmodels.WishlistModel;
 
 @Service
 public class DefaultAppUserService implements AppUserService {
@@ -30,16 +30,16 @@ public class DefaultAppUserService implements AppUserService {
   }
 
   @Override
-  public ImmutableAppUserModel registerUser(RegistrationRequest registrationRequest) {
+  public AppUserModel registerUser(RegistrationRequest registrationRequest) {
     AppUser newUser = new AppUser();
     newUser.setEmail(registrationRequest.getEmail());
     newUser.setUsername(registrationRequest.getUsername());
     newUser.setWishlist(new Wishlist());
     newUser.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
     newUser = userRepository.save(newUser);
-    ImmutableAppUserModel viewModel = ImmutableAppUserModel.builder().email(newUser.getEmail())
-        .username(newUser.getUsername()).wishlist(ImmutableWishlistModel.builder().build())
-        .id(newUser.getId().toString()).build();
+    AppUserModel viewModel = new AppUserModel.Builder().withEmail(newUser.getEmail())
+        .withUsername(newUser.getUsername()).withWishlist(new WishlistModel.Builder().build())
+        .withId(newUser.getId().toString()).build();
     return viewModel;
   }
 

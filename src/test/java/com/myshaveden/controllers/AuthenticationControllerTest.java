@@ -25,11 +25,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.myshaveden.services.AppUserService;
 import com.myshaveden.services.JwtTokenProvider;
 import com.myshaveden.viewmodels.AppUserModel;
-import com.myshaveden.viewmodels.ImmutableAppUserModel;
-import com.myshaveden.viewmodels.ImmutableWishlistModel;
 import com.myshaveden.viewmodels.JwtAuthResponse;
 import com.myshaveden.viewmodels.RegistrationRequest;
 import com.myshaveden.viewmodels.WishlistItemModel;
+import com.myshaveden.viewmodels.WishlistModel;
 
 public class AuthenticationControllerTest {
   private AuthenticationController controller;
@@ -86,8 +85,8 @@ public class AuthenticationControllerTest {
     assertNotNull(response);
     assertEquals(201, response.getStatusCodeValue());
     AppUserModel responseViewModel = response.getBody();
-    assertEquals(MOCK_USERNAME, responseViewModel.username());
-    assertEquals(MOCK_EMAIL, responseViewModel.email());
+    assertEquals(MOCK_USERNAME, responseViewModel.getUsername());
+    assertEquals(MOCK_EMAIL, responseViewModel.getEmail());
   }
 
   @Test
@@ -173,10 +172,10 @@ public class AuthenticationControllerTest {
 
       @Override
       public AppUserModel registerUser(RegistrationRequest registrationRequest) {
-        AppUserModel model = ImmutableAppUserModel.builder().email(registrationRequest.getEmail())
-            .username(registrationRequest.getUsername())
-            .wishlist(ImmutableWishlistModel.builder().wishlistItems(new ArrayList<WishlistItemModel>()).build())
-            .id(UUID.randomUUID().toString()).build();
+        AppUserModel model = new AppUserModel.Builder().withEmail(registrationRequest.getEmail())
+            .withUsername(registrationRequest.getUsername())
+            .withWishlist(new WishlistModel.Builder().withWishlistItems(new ArrayList<WishlistItemModel>()).build())
+            .withId(UUID.randomUUID().toString()).build();
         return model;
       }
 

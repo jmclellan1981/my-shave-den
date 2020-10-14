@@ -14,9 +14,6 @@ import com.myshaveden.domain.WishlistItem;
 import com.myshaveden.repositories.AppUserRepository;
 import com.myshaveden.repositories.LookupDataRepository;
 import com.myshaveden.repositories.ProductRepository;
-import com.myshaveden.viewmodels.ImmutableProductModel;
-import com.myshaveden.viewmodels.ImmutableWishlistItemModel;
-import com.myshaveden.viewmodels.ImmutableWishlistModel;
 import com.myshaveden.viewmodels.ProductModel;
 import com.myshaveden.viewmodels.WishlistItemModel;
 import com.myshaveden.viewmodels.WishlistModel;
@@ -40,8 +37,8 @@ public class DefaultWishlistService implements WishlistService {
   public void addWishListItem(String username, WishlistItemModel wishlistItemModel) {
     AppUser appUser = userRepository.findByUsername(username);
     WishlistItem wishlistItem = new WishlistItem();
-    wishlistItem.setDisplayOrder(wishlistItemModel.displayOrder());
-    Product product = findProduct(wishlistItemModel.product());
+    wishlistItem.setDisplayOrder(wishlistItemModel.getDisplayOrder());
+    Product product = findProduct(wishlistItemModel.getProduct());
     wishlistItem.setProduct(product);
     appUser.getWishlist().getWishlistItems().add(wishlistItem);
     wishlistItem.setWishlist(appUser.getWishlist());
@@ -50,17 +47,17 @@ public class DefaultWishlistService implements WishlistService {
 
   private Product findProduct(ProductModel productModel) {
     Product product = null;
-    if (productModel.id() != null) {
-      product = productRepository.findById(UUID.fromString(productModel.id())).get();
+    if (productModel.getId() != null) {
+      product = productRepository.findById(UUID.fromString(productModel.getId())).get();
     } else {
       product = new Product();
-      product.setDescription(productModel.description());
-      product.setImageSource(productModel.imageSource());
-      product.setProductId(productModel.productId());
-      product.setProductType(findLookupData(productModel.productType()));
-      product.setSite(findLookupData(productModel.site()));
-      product.setTitle(productModel.title());
-      product.setUrl(productModel.url());
+      product.setDescription(productModel.getDescription());
+      product.setImageSource(productModel.getImageSource());
+      product.setProductId(productModel.getProductId());
+      product.setProductType(findLookupData(productModel.getProductType()));
+      product.setSite(findLookupData(productModel.getSite()));
+      product.setTitle(productModel.getTitle());
+      product.setUrl(productModel.getUrl());
     }
     return product;
   }
@@ -76,16 +73,16 @@ public class DefaultWishlistService implements WishlistService {
     AppUser appUser = userRepository.findByUsername(username);
     List<WishlistItemModel> wishlistItems = new ArrayList<>();
     for (WishlistItem item : appUser.getWishlist().getWishlistItems()) {
-      ProductModel product = ImmutableProductModel.builder().description(item.getProduct().getDescription())
-          .imageSource(item.getProduct().getImageSource()).productId(item.getProduct().getProductId())
-          .productType(item.getProduct().getProductType().getDataName()).id(item.getProduct().getId().toString())
-          .url(item.getProduct().getUrl()).site(item.getProduct().getSite().getDataName())
-          .title(item.getProduct().getTitle()).build();
-      WishlistItemModel itemModel = ImmutableWishlistItemModel.builder().displayOrder(item.getDisplayOrder())
-          .product(product).build();
+      ProductModel product = new ProductModel.Builder().withDescription(item.getProduct().getDescription())
+          .withImageSource(item.getProduct().getImageSource()).withProductId(item.getProduct().getProductId())
+          .withProductType(item.getProduct().getProductType().getDataName())
+          .withId(item.getProduct().getId().toString()).withUrl(item.getProduct().getUrl())
+          .withSite(item.getProduct().getSite().getDataName()).withTitle(item.getProduct().getTitle()).build();
+      WishlistItemModel itemModel = new WishlistItemModel.Builder().withDisplayOrder(item.getDisplayOrder())
+          .withProduct(product).build();
       wishlistItems.add(itemModel);
     }
-    WishlistModel wishlistViewModel = ImmutableWishlistModel.builder().wishlistItems(wishlistItems).build();
+    WishlistModel wishlistViewModel = new WishlistModel.Builder().withWishlistItems(wishlistItems).build();
     return wishlistViewModel;
   }
 
