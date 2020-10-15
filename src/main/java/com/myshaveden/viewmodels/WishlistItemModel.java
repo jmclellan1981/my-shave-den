@@ -2,7 +2,7 @@ package com.myshaveden.viewmodels;
 
 public class WishlistItemModel {
   private ProductModel productModel;
-  private int displayOrder;
+  private Integer displayOrder;
 
   private WishlistItemModel() {
   }
@@ -11,7 +11,7 @@ public class WishlistItemModel {
     return productModel;
   }
 
-  public int getDisplayOrder() {
+  public Integer getDisplayOrder() {
     return displayOrder;
   }
 
