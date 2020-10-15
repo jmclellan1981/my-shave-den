@@ -11,8 +11,36 @@ public class ProductModel {
   private String title;
   private String description;
 
-  private ProductModel() {
+  public void setId(String id) {
+    this.id = id;
+  }
 
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  public void setImageSource(String imageSource) {
+    this.imageSource = imageSource;
+  }
+
+  public void setProductId(String productId) {
+    this.productId = productId;
+  }
+
+  public void setProductType(String productType) {
+    this.productType = productType;
+  }
+
+  public void setSite(String site) {
+    this.site = site;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public String getId() {

@@ -4,15 +4,24 @@ public class WishlistItemModel {
   private ProductModel productModel;
   private Integer displayOrder;
 
-  private WishlistItemModel() {
-  }
-
   public ProductModel getProduct() {
     return productModel;
   }
 
   public Integer getDisplayOrder() {
     return displayOrder;
+  }
+
+  public ProductModel getProductModel() {
+    return productModel;
+  }
+
+  public void setProductModel(ProductModel productModel) {
+    this.productModel = productModel;
+  }
+
+  public void setDisplayOrder(Integer displayOrder) {
+    this.displayOrder = displayOrder;
   }
 
   public static class Builder {
