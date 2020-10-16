@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +17,6 @@ import com.myshaveden.viewmodels.WishlistModel;
 
 @RestController
 @RequestMapping("/wishlist")
-@CrossOrigin(origins = "https://www.maggardrazors.com")
 public class WishlistController {
   private WishlistService service;
 
@@ -28,7 +26,6 @@ public class WishlistController {
   }
 
   @PostMapping("/item")
-  @CrossOrigin(origins = "https://www.maggardrazors.com")
   public void addWishlistItem(Authentication auth, @RequestBody WishlistItemModel wishlistItem) {
     User user = (User) auth.getPrincipal();
     String username = user.getUsername();
@@ -36,7 +33,6 @@ public class WishlistController {
   }
 
   @GetMapping("/item/{site}/{productId")
-  @CrossOrigin(origins = "https://www.maggardrazors.com")
   public ResponseEntity<Boolean> itemExists(Authentication auth, @PathVariable("site") String site,
       @PathVariable("productId") String productId) {
     User user = (User) auth.getPrincipal();
