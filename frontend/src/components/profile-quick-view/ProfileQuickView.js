@@ -6,9 +6,7 @@ import { ACCESS_TOKEN } from "../login-panel";
 const ProfileQuickView = ({ setProfileQuickViewVisible }) => {
   const dispatch = useDispatch();
   const logout = () => {
-    console.log("remove from localStorage");
     localStorage.removeItem(ACCESS_TOKEN);
-    console.log("dispatching action");
     setProfileQuickViewVisible(false);
     dispatch({ type: "UPDATE_ACCESS_TOKEN", value: null });
   };

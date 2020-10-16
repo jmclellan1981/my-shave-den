@@ -6,7 +6,6 @@ import "./home.css";
 
 const Home = () => {
   const accessToken = useSelector(state => state.accessToken);
-  console.log(`rendering home with accessToken=${accessToken}`);
   const content = accessToken ? <Wishlist /> : <LoginPanel />;
   return content;
 };
