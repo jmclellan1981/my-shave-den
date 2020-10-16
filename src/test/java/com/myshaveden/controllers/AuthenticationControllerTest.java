@@ -10,9 +10,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -44,7 +47,13 @@ public class AuthenticationControllerTest {
     AppUserService userService = getMockUserService();
     AuthenticationManager authenticationManager = getMockAuthenticationManager();
     JwtTokenProvider jwtTokenProvider = getMockJwtTokenProvider();
-    controller = new AuthenticationController(userService, authenticationManager, jwtTokenProvider);
+    ApplicationEventPublisher eventPublisher = getMockEventPublisher();
+    controller = new AuthenticationController(userService, authenticationManager, jwtTokenProvider, eventPublisher);
+  }
+
+  private ApplicationEventPublisher getMockEventPublisher() {
+    ApplicationEventPublisher eventPublisher = Mockito.mock(ApplicationEventPublisher.class);
+    return eventPublisher;
   }
 
   @Test
@@ -77,11 +86,12 @@ public class AuthenticationControllerTest {
 
   @Test
   public void testRegisterUser() throws URISyntaxException {
+    HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
     RegistrationRequest registrationRequest = new RegistrationRequest();
     registrationRequest.setEmail(MOCK_EMAIL);
     registrationRequest.setPassword(MOCK_PASSWORD);
     registrationRequest.setUsername(MOCK_USERNAME);
-    ResponseEntity<AppUserModel> response = controller.registerUser(registrationRequest);
+    ResponseEntity<AppUserModel> response = controller.registerUser(registrationRequest, request);
     assertNotNull(response);
     assertEquals(201, response.getStatusCodeValue());
     AppUserModel responseViewModel = response.getBody();
