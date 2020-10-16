@@ -21,9 +21,6 @@ public class AppUser extends BaseEntity {
   @JoinColumn(name = "wishlist_id", referencedColumnName = "id")
   private Wishlist wishlist;
 
-  @OneToOne
-  private VerificationToken token;
-
   public String getEmail() {
     return email;
   }
@@ -62,14 +59,6 @@ public class AppUser extends BaseEntity {
 
   public void setEnabled(boolean enabled) {
     this.enabled = enabled;
-  }
-
-  public VerificationToken getToken() {
-    return token;
-  }
-
-  public void setToken(VerificationToken token) {
-    this.token = token;
   }
 
 }

@@ -41,7 +41,7 @@ public class AuthenticationController {
   public ResponseEntity<AppUserModel> registerUser(@RequestBody RegistrationRequest registrationRequest)
       throws URISyntaxException {
     AppUserModel newUser = userService.registerUser(registrationRequest);
-    return ResponseEntity.created(new URI("/" + newUser.id())).body(newUser);
+    return ResponseEntity.created(new URI("/" + newUser.getId())).body(newUser);
   }
 
   @PostMapping("/login")

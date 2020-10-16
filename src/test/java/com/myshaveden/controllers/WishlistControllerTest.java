@@ -10,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 
 import com.myshaveden.services.WishlistService;
-import com.myshaveden.viewmodels.ImmutableWishlistModel;
 import com.myshaveden.viewmodels.WishlistItemModel;
 import com.myshaveden.viewmodels.WishlistModel;
 
@@ -54,8 +53,14 @@ public class WishlistControllerTest {
 
       @Override
       public WishlistModel findWishlist(String username) {
-        WishlistModel model = ImmutableWishlistModel.builder().build();
+        WishlistModel model = new WishlistModel.Builder().build();
         return model;
+      }
+
+      @Override
+      public Boolean itemExists(String username, String site, String productId) {
+        // TODO Auto-generated method stub
+        return false;
       }
 
     };

@@ -56,6 +56,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll().anyRequest().authenticated();
 
     httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-    httpSecurity.requiresChannel().anyRequest().requiresSecure();
+    httpSecurity.requiresChannel().requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null).requiresSecure();
   }
 }

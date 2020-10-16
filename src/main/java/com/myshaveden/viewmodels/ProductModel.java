@@ -1,27 +1,117 @@
 package com.myshaveden.viewmodels;
 
-import org.immutables.value.Value;
+public class ProductModel {
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+  private String id;
+  private String url;
+  private String imageSource;
+  private String productId;
+  private String productType;
+  private String site;
+  private String title;
 
-@Value.Immutable
-@JsonSerialize(as = ImmutableProductModel.class)
-@JsonDeserialize(as = ImmutableProductModel.class)
-public abstract class ProductModel {
-  public abstract String id();
+  public void setId(String id) {
+    this.id = id;
+  }
 
-  public abstract String url();
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
-  public abstract String imageSource();
+  public void setImageSource(String imageSource) {
+    this.imageSource = imageSource;
+  }
 
-  public abstract String productId();
+  public void setProductId(String productId) {
+    this.productId = productId;
+  }
 
-  public abstract String productType();
+  public void setProductType(String productType) {
+    this.productType = productType;
+  }
 
-  public abstract String site();
+  public void setSite(String site) {
+    this.site = site;
+  }
 
-  public abstract String title();
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-  public abstract String description();
+  
+
+  public String getId() {
+    return id;
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public String getImageSource() {
+    return imageSource;
+  }
+
+  public String getProductId() {
+    return productId;
+  }
+
+  public String getProductType() {
+    return productType;
+  }
+
+  public String getSite() {
+    return site;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  
+
+  public static class Builder {
+    private ProductModel model = new ProductModel();
+
+    public Builder withId(String id) {
+      model.id = id;
+      return this;
+    }
+
+    public Builder withUrl(String url) {
+      model.url = url;
+      return this;
+    }
+
+    public Builder withImageSource(String imageSource) {
+      model.imageSource = imageSource;
+      return this;
+    }
+
+    public Builder withProductId(String productId) {
+      model.productId = productId;
+      return this;
+    }
+
+    public Builder withProductType(String productType) {
+      model.productType = productType;
+      return this;
+    }
+
+    public Builder withSite(String site) {
+      model.site = site;
+      return this;
+    }
+
+    
+
+    public Builder withTitle(String title) {
+      model.title = title;
+      return this;
+    }
+
+    public ProductModel build() {
+      return model;
+    }
+  }
 }

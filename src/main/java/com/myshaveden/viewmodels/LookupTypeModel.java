@@ -1,18 +1,47 @@
 package com.myshaveden.viewmodels;
 
-import org.immutables.value.Value;
+public class LookupTypeModel {
+  private String typeName;
+  private String typeDescription;
+  private String id;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+  private LookupTypeModel() {
 
-@Value.Immutable
-@JsonSerialize(as = ImmutableLookupTypeModel.class)
-@JsonDeserialize(as = ImmutableLookupTypeModel.class)
-public abstract class LookupTypeModel {
-  public abstract String typeName();
+  }
 
-  public abstract String typeDescription();
+  public String getTypeName() {
+    return typeName;
+  }
 
-  public abstract String id();
+  public String typeDescription() {
+    return typeDescription;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public static class Builder {
+    private LookupTypeModel model = new LookupTypeModel();
+
+    public Builder withTypeName(String typeName) {
+      model.typeName = typeName;
+      return this;
+    }
+
+    public Builder withTypeDescription(String typeDescription) {
+      model.typeDescription = typeDescription;
+      return this;
+    }
+
+    public Builder withId(String id) {
+      model.id = id;
+      return this;
+    }
+
+    public LookupTypeModel build() {
+      return model;
+    }
+  }
 
 }

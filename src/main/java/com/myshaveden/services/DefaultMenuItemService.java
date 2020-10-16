@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.myshaveden.domain.MenuItem;
 import com.myshaveden.repositories.MenuItemRepository;
-import com.myshaveden.viewmodels.ImmutableMenuItemModel;
 import com.myshaveden.viewmodels.MenuItemModel;
 
 @Service
@@ -25,8 +24,8 @@ public class DefaultMenuItemService implements MenuItemService {
     List<MenuItemModel> modelList = new ArrayList<>();
     List<MenuItem> menuItems = menuItemRepository.findAll();
     for (MenuItem menuItem : menuItems) {
-      MenuItemModel menuItemModel = ImmutableMenuItemModel.builder().title(menuItem.getTitle()).path(menuItem.getPath())
-          .action(menuItem.getAction()).build();
+      MenuItemModel menuItemModel = new MenuItemModel.Builder().withTitle(menuItem.getTitle())
+          .withPath(menuItem.getPath()).withAction(menuItem.getAction()).build();
       modelList.add(menuItemModel);
     }
     return modelList;

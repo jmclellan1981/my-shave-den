@@ -12,14 +12,12 @@ import "./menu-bar.css";
 const padding = { "padding-left": "5px", "padding-right": "5px" };
 
 const TopMenuBar = () => {
-  console.log("rendering menu bar");
   const [menuItems, setMenuItems] = useState([]);
   const [profileQuickViewVisible, setProfileQuickViewVisible] = useState(false);
   const accessToken = useSelector(state => state.accessToken);
 
   useEffect(() => {
     const fetchMenuItems = async () => {
-      console.log("fetching menus");
       const url = "menu-items";
       const headers = new Headers({
         "Content-Type": "application/json"
@@ -30,7 +28,6 @@ const TopMenuBar = () => {
       setMenuItems(menuItemResponse);
     };
     if (accessToken) {
-      console.log("valid accessToken");
       fetchMenuItems();
     }
   }, [accessToken]);

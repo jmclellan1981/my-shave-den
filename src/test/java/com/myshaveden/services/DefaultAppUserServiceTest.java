@@ -17,7 +17,6 @@ import com.myshaveden.domain.AppUser;
 import com.myshaveden.domain.Wishlist;
 import com.myshaveden.repositories.AppUserRepository;
 import com.myshaveden.viewmodels.AppUserModel;
-import com.myshaveden.viewmodels.ImmutableAppUserModel;
 import com.myshaveden.viewmodels.RegistrationRequest;
 import com.myshaveden.viewmodels.WishlistModel;
 
@@ -46,20 +45,20 @@ public class DefaultAppUserServiceTest {
     Mockito.when(appUser.getUsername()).thenReturn(MOCK_USERNAME);
     Mockito.when(appUser.getWishlist()).thenReturn(Mockito.mock(Wishlist.class));
     Mockito.when(appUser.getId()).thenReturn(UUID.randomUUID());
-    Mockito.when(appUserViewModel.email()).thenReturn(MOCK_EMAIL);
-    Mockito.when(appUserViewModel.username()).thenReturn(MOCK_USERNAME);
-    Mockito.when(appUserViewModel.wishlist()).thenReturn(Mockito.mock(WishlistModel.class));
+    Mockito.when(appUserViewModel.getEmail()).thenReturn(MOCK_EMAIL);
+    Mockito.when(appUserViewModel.getUsername()).thenReturn(MOCK_USERNAME);
+    Mockito.when(appUserViewModel.getWishlist()).thenReturn(Mockito.mock(WishlistModel.class));
     service = new DefaultAppUserService(userRepository, passwordEncoder);
 
   }
 
   @Test
   public void testRegisterUser() {
-    ImmutableAppUserModel result = service.registerUser(registrationRequest);
+    AppUserModel result = service.registerUser(registrationRequest);
     assertNotNull(result);
-    assertEquals(MOCK_EMAIL, result.email());
-    assertEquals(MOCK_USERNAME, result.username());
-    assertNotNull(result.wishlist());
+    assertEquals(MOCK_EMAIL, result.getEmail());
+    assertEquals(MOCK_USERNAME, result.getUsername());
+    assertNotNull(result.getWishlist());
   }
 
   @Test

@@ -1,19 +1,46 @@
 package com.myshaveden.viewmodels;
 
-import org.immutables.value.Value;
-import org.springframework.lang.Nullable;
+public class MenuItemModel {
+  private String title;
+  private String action;
+  private String path;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+  private MenuItemModel() {
 
-@Value.Immutable
-@JsonSerialize(as = ImmutableMenuItemModel.class)
-@JsonDeserialize(as = ImmutableMenuItemModel.class)
-public abstract class MenuItemModel {
-  public abstract String title();
+  }
 
-  @Nullable
-  public abstract String action();
+  public String getTitle() {
+    return title;
+  }
 
-  public abstract String path();
+  public String getAction() {
+    return action;
+  }
+
+  public String getPath() {
+    return path;
+  }
+
+  public static class Builder {
+    private MenuItemModel model = new MenuItemModel();
+
+    public Builder withTitle(String title) {
+      model.title = title;
+      return this;
+    }
+
+    public Builder withAction(String action) {
+      model.action = action;
+      return this;
+    }
+
+    public Builder withPath(String path) {
+      model.path = path;
+      return this;
+    }
+
+    public MenuItemModel build() {
+      return model;
+    }
+  }
 }

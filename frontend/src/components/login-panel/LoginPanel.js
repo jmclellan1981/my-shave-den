@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { sendAuthenticatedRequest } from "../../helpers/ajaxHelpers";
 import "./login-panel.css";
 
-const ACCESS_TOKEN = "accessToken";
+const ACCESS_TOKEN = "myShaveDenAccessToken";
 
 const LoginPanel = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const LoginPanel = () => {
     localStorage.setItem(ACCESS_TOKEN, data.accessToken);
     const loginEvent = new CustomEvent("MY_SHAVE_DEN_LOGIN", {
       detail: {
-        accessToken: data.accessToken
+        myShaveDenAccessToken: data.accessToken
       }
     });
     window.dispatchEvent(loginEvent);
