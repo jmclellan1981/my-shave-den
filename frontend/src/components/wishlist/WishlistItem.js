@@ -3,15 +3,15 @@ import "./wishlist-item.css";
 
 const WishlistItem = ({ item }) => (
   <div className="wishlist-item">
-    {item.product.imageSource && (
-      <a href={item.product.url}>
-        <img src={item.product.imageSource} alt="product" />
+    {item.productModel.imageSource && (
+      <a href={item.productModel.url}>
+        <img src={item.productModel.imageSource} alt="product" />
       </a>
     )}
     <div className="product-info">
       <div>
-        <a href={item.product.url}>
-          <h3>{item.product.title}</h3>
+        <a href={item.productModel.url}>
+          <h3>{item.productModel.title}</h3>
         </a>
       </div>
     </div>
