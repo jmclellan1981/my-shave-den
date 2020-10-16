@@ -66,7 +66,8 @@ public class DefaultWishlistService implements WishlistService {
     } else if (productModel.getSite() != null && productModel.getProductId() != null) {
       LookupData site = lookupDataRepository.findByDataName(productModel.getSite());
       product = productRepository.findBySiteAndProductId(site, productModel.getProductId());
-    } else {
+    }
+    if (product == null) {
       product = new Product();
       product.setImageSource(productModel.getImageSource());
       product.setProductId(productModel.getProductId());
