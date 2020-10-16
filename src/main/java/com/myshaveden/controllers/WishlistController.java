@@ -27,8 +27,8 @@ public class WishlistController {
     this.service = service;
   }
 
-  @PostMapping
-  @RequestMapping("/item")
+  @PostMapping("/item")
+  @CrossOrigin(origins = "https://www.maggardrazors.com")
   public void addWishlistItem(Authentication auth, @RequestBody WishlistItemModel wishlistItem) {
     User user = (User) auth.getPrincipal();
     String username = user.getUsername();
@@ -36,6 +36,7 @@ public class WishlistController {
   }
 
   @GetMapping("/item/{site}/{productId")
+  @CrossOrigin(origins = "https://www.maggardrazors.com")
   public ResponseEntity<Boolean> itemExists(Authentication auth, @PathVariable("site") String site,
       @PathVariable("productId") String productId) {
     User user = (User) auth.getPrincipal();
