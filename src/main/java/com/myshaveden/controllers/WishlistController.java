@@ -32,7 +32,7 @@ public class WishlistController {
     service.addWishListItem(username, wishlistItem);
   }
 
-  @GetMapping("/item/{site}/{productId")
+  @GetMapping("/item/{site}/{productId}")
   public ResponseEntity<Boolean> itemExists(Authentication auth, @PathVariable("site") String site,
       @PathVariable("productId") String productId) {
     User user = (User) auth.getPrincipal();
