@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.myshaveden.domain.AppUser;
 import com.myshaveden.domain.LookupData;
 import com.myshaveden.domain.Product;
+import com.myshaveden.domain.Wishlist;
 import com.myshaveden.domain.WishlistItem;
 import com.myshaveden.repositories.AppUserRepository;
 import com.myshaveden.repositories.LookupDataRepository;
@@ -36,23 +37,37 @@ public class DefaultWishlistService implements WishlistService {
   @Override
   public void addWishListItem(String username, WishlistItemModel wishlistItemModel) {
     AppUser appUser = userRepository.findByUsername(username);
-    WishlistItem wishlistItem = new WishlistItem();
-    int displayOrder = appUser.getWishlist().getWishlistItems().size();
-    wishlistItem.setDisplayOrder(displayOrder);
-    Product product = findProduct(wishlistItemModel.getProduct());
-    wishlistItem.setProduct(product);
-    appUser.getWishlist().getWishlistItems().add(wishlistItem);
-    wishlistItem.setWishlist(appUser.getWishlist());
-    userRepository.save(appUser);
+    if (!isItemPresent(appUser.getWishlist(), wishlistItemModel)) {
+      WishlistItem wishlistItem = new WishlistItem();
+      int displayOrder = appUser.getWishlist().getWishlistItems().size() + 1;
+      wishlistItem.setDisplayOrder(displayOrder);
+      Product product = findProduct(wishlistItemModel.getProductModel());
+      wishlistItem.setProduct(product);
+      appUser.getWishlist().getWishlistItems().add(wishlistItem);
+      wishlistItem.setWishlist(appUser.getWishlist());
+      userRepository.save(appUser);
+    }
+  }
+
+  private boolean isItemPresent(Wishlist wishlist, WishlistItemModel wishlistItem) {
+    boolean isPresent = false;
+    for (WishlistItem item : wishlist.getWishlistItems()) {
+      if (item.getProduct().getProductId().equals(wishlistItem.getProductModel().getProductId())) {
+        isPresent = true;
+      }
+    }
+    return isPresent;
   }
 
   private Product findProduct(ProductModel productModel) {
     Product product = null;
     if (productModel.getId() != null) {
       product = productRepository.findById(UUID.fromString(productModel.getId())).get();
+    } else if (productModel.getSite() != null && productModel.getProductId() != null) {
+      LookupData site = lookupDataRepository.findByDataName(productModel.getSite());
+      product = productRepository.findBySiteAndProductId(site, productModel.getProductId());
     } else {
       product = new Product();
-      product.setDescription(productModel.getDescription());
       product.setImageSource(productModel.getImageSource());
       product.setProductId(productModel.getProductId());
       product.setProductType(findLookupData(productModel.getProductType()));
@@ -74,8 +89,8 @@ public class DefaultWishlistService implements WishlistService {
     AppUser appUser = userRepository.findByUsername(username);
     List<WishlistItemModel> wishlistItems = new ArrayList<>();
     for (WishlistItem item : appUser.getWishlist().getWishlistItems()) {
-      ProductModel product = new ProductModel.Builder().withDescription(item.getProduct().getDescription())
-          .withImageSource(item.getProduct().getImageSource()).withProductId(item.getProduct().getProductId())
+      ProductModel product = new ProductModel.Builder().withImageSource(item.getProduct().getImageSource())
+          .withProductId(item.getProduct().getProductId())
           .withProductType(item.getProduct().getProductType().getDataName())
           .withId(item.getProduct().getId().toString()).withUrl(item.getProduct().getUrl())
           .withSite(item.getProduct().getSite().getDataName()).withTitle(item.getProduct().getTitle()).build();
@@ -85,6 +100,19 @@ public class DefaultWishlistService implements WishlistService {
     }
     WishlistModel wishlistViewModel = new WishlistModel.Builder().withWishlistItems(wishlistItems).build();
     return wishlistViewModel;
+  }
+
+  @Override
+  public Boolean itemExists(String username, String site, String productId) {
+    boolean exists = false;
+    AppUser user = userRepository.findByUsername(username);
+    for (WishlistItem item : user.getWishlist().getWishlistItems()) {
+      if (item.getProduct().getSite().getDataName().equals(site)
+          && item.getProduct().getProductId().equals(productId)) {
+        exists = true;
+      }
+    }
+    return exists;
   }
 
 }

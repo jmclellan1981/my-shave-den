@@ -1,6 +1,5 @@
 package com.myshaveden.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,8 +18,6 @@ public class Product extends BaseEntity {
   private LookupData site;
 
   private String title;
-  @Column(length = 1024)
-  private String description;
 
   public LookupData getProductType() {
     return productType;
@@ -44,14 +41,6 @@ public class Product extends BaseEntity {
 
   public void setTitle(String title) {
     this.title = title;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
   }
 
   public String getUrl() {

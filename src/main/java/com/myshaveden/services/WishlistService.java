@@ -7,4 +7,6 @@ public interface WishlistService {
   public void addWishListItem(String username, WishlistItemModel wishlistItem);
 
   public WishlistModel findWishlist(String username);
+
+  public Boolean itemExists(String username, String site, String productId);
 }

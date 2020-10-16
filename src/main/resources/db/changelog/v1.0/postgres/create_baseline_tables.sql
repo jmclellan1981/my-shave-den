@@ -39,7 +39,6 @@ CREATE TABLE public.product
     id uuid NOT NULL,
     date_created timestamp without time zone,
     date_modified timestamp without time zone,
-    description character varying(1024) COLLATE pg_catalog."default",
     image_source character varying(255) COLLATE pg_catalog."default",
     product_id character varying(255) COLLATE pg_catalog."default",
     title character varying(255) COLLATE pg_catalog."default",

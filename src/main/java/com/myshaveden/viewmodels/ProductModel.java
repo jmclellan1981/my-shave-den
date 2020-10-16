@@ -9,7 +9,6 @@ public class ProductModel {
   private String productType;
   private String site;
   private String title;
-  private String description;
 
   public void setId(String id) {
     this.id = id;
@@ -39,9 +38,7 @@ public class ProductModel {
     this.title = title;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+  
 
   public String getId() {
     return id;
@@ -71,9 +68,7 @@ public class ProductModel {
     return title;
   }
 
-  public String getDescription() {
-    return description;
-  }
+  
 
   public static class Builder {
     private ProductModel model = new ProductModel();
@@ -108,10 +103,7 @@ public class ProductModel {
       return this;
     }
 
-    public Builder withDescription(String description) {
-      model.description = description;
-      return this;
-    }
+    
 
     public Builder withTitle(String title) {
       model.title = title;

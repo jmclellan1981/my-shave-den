@@ -14,7 +14,6 @@ const WishlistItem = ({ item }) => (
           <h3>{item.product.title}</h3>
         </a>
       </div>
-      <p>{item.product.description}</p>
     </div>
   </div>
 );

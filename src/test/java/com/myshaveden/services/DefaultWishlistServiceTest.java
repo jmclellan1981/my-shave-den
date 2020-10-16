@@ -51,7 +51,6 @@ public class DefaultWishlistServiceTest {
   public void testAddWishlistItem() {
     WishlistItemModel wishlistItem = Mockito.mock(WishlistItemModel.class);
     ProductModel productModel = Mockito.mock(ProductModel.class);
-    Mockito.when(productModel.getDescription()).thenReturn("TEST");
     Mockito.when(productModel.getId()).thenReturn(UUID.randomUUID().toString());
     Mockito.when(productModel.getImageSource()).thenReturn("TEST");
     Mockito.when(productModel.getProductId()).thenReturn(UUID.randomUUID().toString());
@@ -59,7 +58,7 @@ public class DefaultWishlistServiceTest {
     Mockito.when(productModel.getSite()).thenReturn("TEST");
     Mockito.when(productModel.getTitle()).thenReturn("TEST");
     Mockito.when(productModel.getUrl()).thenReturn("TEST");
-    Mockito.when(wishlistItem.getProduct()).thenReturn(productModel);
+    Mockito.when(wishlistItem.getProductModel()).thenReturn(productModel);
     service.addWishListItem(MOCK_USERNAME, wishlistItem);
   }
 
@@ -67,7 +66,6 @@ public class DefaultWishlistServiceTest {
   public void testAddWishlistItem_newProduct() {
     WishlistItemModel wishlistItem = Mockito.mock(WishlistItemModel.class);
     ProductModel productModel = Mockito.mock(ProductModel.class);
-    Mockito.when(productModel.getDescription()).thenReturn("TEST");
     Mockito.when(productModel.getId()).thenReturn(null);
     Mockito.when(productModel.getImageSource()).thenReturn("TEST");
     Mockito.when(productModel.getProductId()).thenReturn(UUID.randomUUID().toString());
@@ -75,7 +73,7 @@ public class DefaultWishlistServiceTest {
     Mockito.when(productModel.getSite()).thenReturn("TEST");
     Mockito.when(productModel.getTitle()).thenReturn("TEST");
     Mockito.when(productModel.getUrl()).thenReturn("TEST");
-    Mockito.when(wishlistItem.getProduct()).thenReturn(productModel);
+    Mockito.when(wishlistItem.getProductModel()).thenReturn(productModel);
     service.addWishListItem(MOCK_USERNAME, wishlistItem);
   }
 
@@ -91,7 +89,6 @@ public class DefaultWishlistServiceTest {
     Wishlist wishlist = Mockito.mock(Wishlist.class);
     List<WishlistItem> wishlistItems = new ArrayList<>();
     Product product = Mockito.mock(Product.class);
-    Mockito.when(product.getDescription()).thenReturn("TEST");
     Mockito.when(product.getImageSource()).thenReturn("TEST");
     Mockito.when(product.getProductId()).thenReturn("TEST");
     LookupData productType = Mockito.mock(LookupData.class);

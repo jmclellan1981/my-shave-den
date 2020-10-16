@@ -18,3 +18,6 @@ VALUES(uuid_generate_v4(), now(), now(), 'RAZOR', 'Razor', (SELECT id FROM looku
 
 INSERT INTO lookup_data(id, date_created, date_modified, data_name, data_description, lookup_type_id)
 VALUES(uuid_generate_v4(), now(), now(), 'BLADE', 'Razor Blade', (SELECT id FROM lookup_type WHERE type_name='ITEM_TYPE'));
+
+INSERT INTO lookup_data(id, date_created, date_modified, data_name, data_description, lookup_type_id)
+VALUES(uuid_generate_v4(), now(), now(), 'MISC', 'Miscellaneous', (SELECT id FROM lookup_type WHERE type_name='ITEM_TYPE'));

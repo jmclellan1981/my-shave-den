@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,15 @@ public class WishlistController {
     User user = (User) auth.getPrincipal();
     String username = user.getUsername();
     service.addWishListItem(username, wishlistItem);
+  }
+
+  @GetMapping("/item/{site}/{productId")
+  public ResponseEntity<Boolean> itemExists(Authentication auth, @PathVariable("site") String site,
+      @PathVariable("productId") String productId) {
+    User user = (User) auth.getPrincipal();
+    String username = user.getUsername();
+    Boolean exists = service.itemExists(username, site, productId);
+    return ResponseEntity.ok(exists);
   }
 
   @GetMapping

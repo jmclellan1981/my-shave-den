@@ -4,10 +4,6 @@ public class WishlistItemModel {
   private ProductModel productModel;
   private Integer displayOrder;
 
-  public ProductModel getProduct() {
-    return productModel;
-  }
-
   public Integer getDisplayOrder() {
     return displayOrder;
   }

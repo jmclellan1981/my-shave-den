@@ -57,6 +57,12 @@ public class WishlistControllerTest {
         return model;
       }
 
+      @Override
+      public Boolean itemExists(String username, String site, String productId) {
+        // TODO Auto-generated method stub
+        return false;
+      }
+
     };
   }
 }
