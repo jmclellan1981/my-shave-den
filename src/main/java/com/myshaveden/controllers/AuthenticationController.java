@@ -3,7 +3,10 @@ package com.myshaveden.controllers;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.myshaveden.registration.OnRegistrationCompleteEvent;
 import com.myshaveden.services.AppUserService;
 import com.myshaveden.services.JwtTokenProvider;
 import com.myshaveden.viewmodels.AppUserModel;
@@ -28,19 +32,23 @@ public class AuthenticationController {
   private AppUserService userService;
   private AuthenticationManager authenticationManager;
   private JwtTokenProvider tokenProvider;
+  private ApplicationEventPublisher eventPublisher;
 
   @Autowired
   public AuthenticationController(AppUserService userService, AuthenticationManager authenticationManager,
-      JwtTokenProvider jwtTokenProvider) {
+      JwtTokenProvider jwtTokenProvider, ApplicationEventPublisher eventPublisher) {
     this.userService = userService;
     this.authenticationManager = authenticationManager;
     this.tokenProvider = jwtTokenProvider;
+    this.eventPublisher = eventPublisher;
   }
 
   @PostMapping("/register")
-  public ResponseEntity<AppUserModel> registerUser(@RequestBody RegistrationRequest registrationRequest)
-      throws URISyntaxException {
+  public ResponseEntity<AppUserModel> registerUser(@RequestBody RegistrationRequest registrationRequest,
+      HttpServletRequest request) throws URISyntaxException {
     AppUserModel newUser = userService.registerUser(registrationRequest);
+    eventPublisher
+        .publishEvent(new OnRegistrationCompleteEvent(newUser, request.getLocale(), request.getContextPath()));
     return ResponseEntity.created(new URI("/" + newUser.getId())).body(newUser);
   }
 
