@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 import com.myshaveden.services.AppUserService;
@@ -22,8 +21,7 @@ import com.sendgrid.helpers.mail.objects.Email;
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
   @Autowired
   AppUserService userService;
-  @Autowired
-  JavaMailSender mailSender;
+
   @Value("app.email.key")
   private String emailKey;
 
