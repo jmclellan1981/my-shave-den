@@ -97,6 +97,9 @@ public class DefaultWishlistService implements WishlistService {
           .withSite(item.getProduct().getSite().getDataName()).withTitle(item.getProduct().getTitle()).build();
       WishlistItemModel itemModel = new WishlistItemModel.Builder().withDisplayOrder(item.getDisplayOrder())
           .withProduct(product).build();
+      itemModel.setDateCreated(item.getDateCreated());
+      itemModel.setDateModified(item.getDateModified());
+      itemModel.setId(item.getId().toString());
       wishlistItems.add(itemModel);
     }
     WishlistModel wishlistViewModel = new WishlistModel.Builder().withWishlistItems(wishlistItems).build();

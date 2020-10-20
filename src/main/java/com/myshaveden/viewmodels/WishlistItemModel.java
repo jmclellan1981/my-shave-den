@@ -1,6 +1,6 @@
 package com.myshaveden.viewmodels;
 
-public class WishlistItemModel {
+public class WishlistItemModel extends BaseModel {
   private ProductModel productModel;
   private Integer displayOrder;
 
