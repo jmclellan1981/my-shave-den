@@ -1,8 +1,21 @@
 package com.myshaveden.viewmodels;
 
-public class WishlistItemModel extends BaseModel {
-  private ProductModel productModel;
-  private Integer displayOrder;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+@JsonDeserialize(builder = WishlistItemModel.Builder.class)
+public class WishlistItemModel {
+  private final ProductModel productModel;
+  private final Integer displayOrder;
+  private final LocalDateTime dateCreated;
+
+  private WishlistItemModel(ProductModel productModel, Integer displayOrder, LocalDateTime dateCreated) {
+    this.productModel = productModel;
+    this.displayOrder = displayOrder;
+    this.dateCreated = dateCreated;
+  }
 
   public Integer getDisplayOrder() {
     return displayOrder;
@@ -12,29 +25,29 @@ public class WishlistItemModel extends BaseModel {
     return productModel;
   }
 
-  public void setProductModel(ProductModel productModel) {
-    this.productModel = productModel;
-  }
-
-  public void setDisplayOrder(Integer displayOrder) {
-    this.displayOrder = displayOrder;
-  }
-
+  @JsonPOJOBuilder
   public static class Builder {
-    private WishlistItemModel model = new WishlistItemModel();
+    private ProductModel productModel;
+    private Integer displayOrder;
+    private LocalDateTime dateCreated;
 
     public Builder withDisplayOrder(int displayOrder) {
-      model.displayOrder = displayOrder;
+      this.displayOrder = displayOrder;
       return this;
     }
 
     public Builder withProduct(ProductModel product) {
-      model.productModel = product;
+      this.productModel = product;
+      return this;
+    }
+
+    public Builder withDateCreated(LocalDateTime dateCreated) {
+      this.dateCreated = dateCreated;
       return this;
     }
 
     public WishlistItemModel build() {
-      return model;
+      return new WishlistItemModel(productModel, displayOrder, dateCreated);
     }
   }
 }

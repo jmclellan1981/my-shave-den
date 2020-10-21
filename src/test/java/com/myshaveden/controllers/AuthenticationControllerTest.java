@@ -87,10 +87,10 @@ public class AuthenticationControllerTest {
   @Test
   public void testRegisterUser() throws URISyntaxException {
     HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-    RegistrationRequest registrationRequest = new RegistrationRequest();
-    registrationRequest.setEmail(MOCK_EMAIL);
-    registrationRequest.setPassword(MOCK_PASSWORD);
-    registrationRequest.setUsername(MOCK_USERNAME);
+    RegistrationRequest registrationRequest = Mockito.mock(RegistrationRequest.class);
+    Mockito.when(registrationRequest.getEmail()).thenReturn(MOCK_EMAIL);
+    Mockito.when(registrationRequest.getPassword()).thenReturn(MOCK_PASSWORD);
+    Mockito.when(registrationRequest.getUsername()).thenReturn(MOCK_USERNAME);
     ResponseEntity<AppUserModel> response = controller.registerUser(registrationRequest, request);
     assertNotNull(response);
     assertEquals(201, response.getStatusCodeValue());
@@ -101,10 +101,10 @@ public class AuthenticationControllerTest {
 
   @Test
   public void testSigninUser() {
-    RegistrationRequest request = new RegistrationRequest();
-    request.setEmail(MOCK_EMAIL);
-    request.setPassword(MOCK_PASSWORD);
-    request.setUsername(MOCK_USERNAME);
+    RegistrationRequest request = Mockito.mock(RegistrationRequest.class);
+    Mockito.when(request.getEmail()).thenReturn(MOCK_EMAIL);
+    Mockito.when(request.getPassword()).thenReturn(MOCK_PASSWORD);
+    Mockito.when(request.getUsername()).thenReturn(MOCK_USERNAME);
     ResponseEntity<JwtAuthResponse> response = controller.signinUser(request);
     assertNotNull(response);
   }
