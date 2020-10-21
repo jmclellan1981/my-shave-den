@@ -1,12 +1,18 @@
 package com.myshaveden.viewmodels;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+@JsonDeserialize(builder = MenuItemModel.Builder.class)
 public class MenuItemModel {
-  private String title;
-  private String action;
-  private String path;
+  private final String title;
+  private final String action;
+  private final String path;
 
-  private MenuItemModel() {
-
+  private MenuItemModel(String title, String action, String path) {
+    this.title = title;
+    this.action = action;
+    this.path = path;
   }
 
   public String getTitle() {
@@ -21,26 +27,29 @@ public class MenuItemModel {
     return path;
   }
 
+  @JsonPOJOBuilder
   public static class Builder {
-    private MenuItemModel model = new MenuItemModel();
+    private String title;
+    private String action;
+    private String path;
 
     public Builder withTitle(String title) {
-      model.title = title;
+      this.title = title;
       return this;
     }
 
     public Builder withAction(String action) {
-      model.action = action;
+      this.action = action;
       return this;
     }
 
     public Builder withPath(String path) {
-      model.path = path;
+      this.path = path;
       return this;
     }
 
     public MenuItemModel build() {
-      return model;
+      return new MenuItemModel(title, action, path);
     }
   }
 }

@@ -1,8 +1,8 @@
 package com.myshaveden.viewmodels;
 
 public class JwtAuthResponse {
-  private String accessToken;
-  private String tokenType = "Bearer";
+  private final String accessToken;
+  private final String tokenType = "Bearer";
 
   public JwtAuthResponse(String accessToken) {
     this.accessToken = accessToken;
@@ -12,15 +12,7 @@ public class JwtAuthResponse {
     return accessToken;
   }
 
-  public void setAccessToken(String accessToken) {
-    this.accessToken = accessToken;
-  }
-
   public String getTokenType() {
     return tokenType;
-  }
-
-  public void setTokenType(String tokenType) {
-    this.tokenType = tokenType;
   }
 }

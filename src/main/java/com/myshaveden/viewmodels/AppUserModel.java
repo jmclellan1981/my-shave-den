@@ -1,41 +1,51 @@
 package com.myshaveden.viewmodels;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+@JsonDeserialize(builder = AppUserModel.Builder.class)
 public class AppUserModel {
-  private String email;
-  private String username;
-  private String id;
-  private WishlistModel wishlist;
-  public static Builder builder;
+  private final String email;
+  private final String username;
+  private final String id;
+  private final WishlistModel wishlist;
 
-  private AppUserModel() {
-
+  private AppUserModel(String email, String username, String id, WishlistModel wishlist) {
+    this.email = email;
+    this.username = username;
+    this.id = id;
+    this.wishlist = wishlist;
   }
 
+  @JsonPOJOBuilder
   public static class Builder {
-    AppUserModel model = new AppUserModel();
+    private String email;
+    private String username;
+    private String id;
+    private WishlistModel wishlist;
 
     public Builder withEmail(String email) {
-      model.email = email;
+      this.email = email;
       return this;
     }
 
     public Builder withUsername(String username) {
-      model.username = username;
+      this.username = username;
       return this;
     }
 
     public Builder withId(String id) {
-      model.id = id;
+      this.id = id;
       return this;
     }
 
     public Builder withWishlist(WishlistModel wishlist) {
-      model.wishlist = wishlist;
+      this.wishlist = wishlist;
       return this;
     }
 
     public AppUserModel build() {
-      return model;
+      return new AppUserModel(email, username, id, wishlist);
     }
   }
 
