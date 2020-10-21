@@ -1,28 +1,33 @@
 package com.myshaveden.viewmodels;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class WishlistModel {
-  private List<WishlistItemModel> wishlistItems = new ArrayList<>();
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-  private WishlistModel() {
+@JsonDeserialize(builder = WishlistModel.Builder.class)
+public class WishlistModel {
+  private final List<WishlistItemModel> wishlistItems;
+
+  private WishlistModel(List<WishlistItemModel> wishlistItems) {
+    this.wishlistItems = wishlistItems;
   }
 
   public List<WishlistItemModel> getWishlistItems() {
     return wishlistItems;
   }
 
+  @JsonPOJOBuilder
   public static class Builder {
-    WishlistModel model = new WishlistModel();
+    private List<WishlistItemModel> wishlistItems;
 
     public Builder withWishlistItems(List<WishlistItemModel> wishlistItems) {
-      model.wishlistItems = wishlistItems;
+      this.wishlistItems = wishlistItems;
       return this;
     }
 
     public WishlistModel build() {
-      return model;
+      return new WishlistModel(wishlistItems);
     }
   }
 

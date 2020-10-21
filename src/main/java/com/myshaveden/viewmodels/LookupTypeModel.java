@@ -1,12 +1,18 @@
 package com.myshaveden.viewmodels;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+@JsonDeserialize(builder = LookupTypeModel.Builder.class)
 public class LookupTypeModel {
-  private String typeName;
-  private String typeDescription;
-  private String id;
+  private final String typeName;
+  private final String typeDescription;
+  private final String id;
 
-  private LookupTypeModel() {
-
+  private LookupTypeModel(String typeName, String typeDescription, String id) {
+    this.typeName = typeName;
+    this.typeDescription = typeDescription;
+    this.id = id;
   }
 
   public String getTypeName() {
@@ -21,26 +27,29 @@ public class LookupTypeModel {
     return id;
   }
 
+  @JsonPOJOBuilder
   public static class Builder {
-    private LookupTypeModel model = new LookupTypeModel();
+    private String typeName;
+    private String typeDescription;
+    private String id;
 
     public Builder withTypeName(String typeName) {
-      model.typeName = typeName;
+      this.typeName = typeName;
       return this;
     }
 
     public Builder withTypeDescription(String typeDescription) {
-      model.typeDescription = typeDescription;
+      this.typeDescription = typeDescription;
       return this;
     }
 
     public Builder withId(String id) {
-      model.id = id;
+      this.id = id;
       return this;
     }
 
     public LookupTypeModel build() {
-      return model;
+      return new LookupTypeModel(typeName, typeDescription, id);
     }
   }
 
