@@ -27,6 +27,7 @@ const wishlistItems = (state = [], { type, payload }) => {
 
 const wishlistSort = (state = null, { type, payload }) => {
   if (type === UPDATE_WISHLIST_SORT) {
+    console.log("updating sort to " + payload);
     return payload;
   }
   return state;

@@ -14,7 +14,12 @@
 
 .wishlist-header-menu:hover {
   background-color: lightgray;
-  transition: background-color 1000ms linear;
+  color: black;
+  transition: background-color 500ms linear;
+}
+
+.header-menu-option {
+  cursor: pointer;
 }
 
 .sort-by-panel {

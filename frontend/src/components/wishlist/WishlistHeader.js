@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import FilterList from "@material-ui/icons/FilterList";
 import "./wishlist-header.css";
 import { UPDATE_WISHLIST_SORT } from "../../reducers";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 const sortOptions = {
   title: "title",
@@ -37,11 +38,14 @@ const WishlistHeader = () => {
 
 const SortByPanel = ({ closeMenu }) => {
   const dispatch = useDispatch();
+  const ref = useRef(null);
+  useOutsideClick(ref, closeMenu);
   return (
-    <div className="sort-by-panel">
+    <div className="sort-by-panel" ref={ref}>
       <div
         className="header-menu-option"
         onClick={() => {
+          console.log("dispatching action: " + sortOptions.dateCreated);
           dispatch({
             type: UPDATE_WISHLIST_SORT,
             payload: sortOptions.dateCreated
@@ -56,6 +60,7 @@ const SortByPanel = ({ closeMenu }) => {
       <div
         className="header-menu-option"
         onClick={() => {
+          console.log("dispatching action: " + sortOptions.productType);
           dispatch({
             type: UPDATE_WISHLIST_SORT,
             payload: sortOptions.productType
@@ -68,6 +73,7 @@ const SortByPanel = ({ closeMenu }) => {
       <div
         className="header-menu-option"
         onClick={() => {
+          console.log("dispatching action: " + sortOptions.title);
           dispatch({
             type: UPDATE_WISHLIST_SORT,
             payload: sortOptions.title

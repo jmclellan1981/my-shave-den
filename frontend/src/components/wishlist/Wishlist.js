@@ -25,6 +25,7 @@ const Wishlist = ({ userId }) => {
       dispatch({ type: NEW_WISHLIST_ITEMS, payload: [] });
     }
   }, [accessToken, dispatch]);
+
   if (wishlistSort) {
     let sortItem1 = "";
     let sortItem2 = "";
@@ -37,7 +38,7 @@ const Wishlist = ({ userId }) => {
         item2.productModel[wishlistSort]
       ) {
         sortItem1 = item1.productModel[wishlistSort];
-        sortItem2 = item1.productModel[wishlistSort];
+        sortItem2 = item2.productModel[wishlistSort];
       }
       if (sortItem1 < sortItem2) {
         return -1;
