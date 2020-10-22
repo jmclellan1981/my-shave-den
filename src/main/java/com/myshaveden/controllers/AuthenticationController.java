@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.myshaveden.registration.OnRegistrationCompleteEvent;
 import com.myshaveden.services.AppUserService;
 import com.myshaveden.services.JwtTokenProvider;
 import com.myshaveden.viewmodels.AppUserModel;
@@ -32,7 +31,6 @@ public class AuthenticationController {
   private AppUserService userService;
   private AuthenticationManager authenticationManager;
   private JwtTokenProvider tokenProvider;
-  private ApplicationEventPublisher eventPublisher;
 
   @Autowired
   public AuthenticationController(AppUserService userService, AuthenticationManager authenticationManager,
@@ -40,15 +38,12 @@ public class AuthenticationController {
     this.userService = userService;
     this.authenticationManager = authenticationManager;
     this.tokenProvider = jwtTokenProvider;
-    this.eventPublisher = eventPublisher;
   }
 
   @PostMapping("/register")
   public ResponseEntity<AppUserModel> registerUser(@RequestBody RegistrationRequest registrationRequest,
       HttpServletRequest request) throws URISyntaxException {
     AppUserModel newUser = userService.registerUser(registrationRequest);
-    eventPublisher
-        .publishEvent(new OnRegistrationCompleteEvent(newUser, request.getLocale(), request.getContextPath()));
     return ResponseEntity.created(new URI("/" + newUser.getId())).body(newUser);
   }
 

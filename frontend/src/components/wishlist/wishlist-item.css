@@ -1,7 +1,7 @@
 .wishlist-item {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 60%;
   background-color: lightgray;
   padding: 1rem 2rem;

@@ -1,12 +1,11 @@
 import React, { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import FilterList from "@material-ui/icons/FilterList";
 import "./wishlist-header.css";
-import { UPDATE_WISHLIST_SORT } from "../../reducers";
-import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { FilterPanel } from "./FilterPanel";
+import { SortByPanel } from "./SortByPanel";
 
-const sortOptions = {
+export const sortOptions = {
   title: "title",
   dateCreated: "dateCreated",
   dateModified: "dateModified",
@@ -14,77 +13,42 @@ const sortOptions = {
 };
 const WishlistHeader = () => {
   const [sortByVisible, setSortByVisible] = useState(false);
-
+  const [filterVisible, setFilterVisible] = useState(false);
+  const sortMenuRef = useRef(null);
+  const filterMenuRef = useRef(null);
   return (
     <div className="wishlist-header">
       <div
         className={`wishlist-header-menu ${sortByVisible ? "selected" : ""}`}
         onClick={() => setSortByVisible(isVisible => !isVisible)}
+        ref={sortMenuRef}
       >
         Sort By:
         <ArrowDropDown />
       </div>
       {sortByVisible && (
-        <SortByPanel closeMenu={() => setSortByVisible(false)} />
+        <SortByPanel
+          closeMenu={() => setSortByVisible(false)}
+          menuRef={sortMenuRef}
+        />
       )}
-      <div className="wishlist-header-menu">
+      <div
+        className={`wishlist-header-menu ${filterVisible ? "selected" : ""}`}
+        onClick={() => setFilterVisible(isVisible => !isVisible)}
+        ref={filterMenuRef}
+      >
         <FilterList />
         Filters:
         <ArrowDropDown />
       </div>
+      {filterVisible && (
+        <FilterPanel
+          closeMenu={() => setFilterVisible(false)}
+          menuRef={filterMenuRef}
+        />
+      )}
     </div>
   );
 };
 
-const SortByPanel = ({ closeMenu }) => {
-  const dispatch = useDispatch();
-  const ref = useRef(null);
-  useOutsideClick(ref, closeMenu);
-  return (
-    <div className="sort-by-panel" ref={ref}>
-      <div
-        className="header-menu-option"
-        onClick={() => {
-          console.log("dispatching action: " + sortOptions.dateCreated);
-          dispatch({
-            type: UPDATE_WISHLIST_SORT,
-            payload: sortOptions.dateCreated
-          });
-          closeMenu();
-        }}
-      >
-        Date Added
-      </div>
-      <div className="header-menu-option">Site</div>
-      <div className="header-menu-option">Ranked Order</div>
-      <div
-        className="header-menu-option"
-        onClick={() => {
-          console.log("dispatching action: " + sortOptions.productType);
-          dispatch({
-            type: UPDATE_WISHLIST_SORT,
-            payload: sortOptions.productType
-          });
-          closeMenu();
-        }}
-      >
-        Category
-      </div>
-      <div
-        className="header-menu-option"
-        onClick={() => {
-          console.log("dispatching action: " + sortOptions.title);
-          dispatch({
-            type: UPDATE_WISHLIST_SORT,
-            payload: sortOptions.title
-          });
-          closeMenu();
-        }}
-      >
-        Title
-      </div>
-    </div>
-  );
-};
-export { sortOptions };
 export default WishlistHeader;

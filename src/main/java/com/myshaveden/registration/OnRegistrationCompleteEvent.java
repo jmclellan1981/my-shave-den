@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationEvent;
 import com.myshaveden.viewmodels.AppUserModel;
 
 public class OnRegistrationCompleteEvent extends ApplicationEvent {
+  private static final long serialVersionUID = 9006664514484001994L;
   private String appUrl;
   private Locale locale;
   private AppUserModel user;

@@ -38,7 +38,6 @@ public class AuthenticationControllerTest {
   private final String MOCK_USERNAME = "MOCK_USERNAME";
   private final String MOCK_PASSWORD = "MOCK_PASSWORD";
   private final String MOCK_EMAIL = "MOCK_EMAIL";
-  private final UUID MOCK_ID = UUID.randomUUID();
   private final String INVALID_USERNAME = "INVALID_USERNAME";
   private final String INVALID_EMAIL = "INVALID_EMAIL";
 

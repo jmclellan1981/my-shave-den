@@ -10,6 +10,7 @@ const Wishlist = ({ userId }) => {
   const accessToken = useSelector(state => state.accessToken);
   const wishlistItems = useSelector(state => state.wishlistItems);
   const wishlistSort = useSelector(state => state.wishlistSort);
+  const filters = useSelector(state => state.wishlistFilter);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -49,9 +50,20 @@ const Wishlist = ({ userId }) => {
       }
     });
   }
+  let displayedItems = [...wishlistItems];
+  if (filters.sites.length > 0) {
+    displayedItems = displayedItems.filter(item =>
+      filters.sites.includes(item.productModel.site)
+    );
+  }
 
-  const wishlistItemsDisplay = wishlistItems.map(wishlistItem => (
-    <WishlistItem item={wishlistItem} />
+  if (filters.categories.length > 0) {
+    displayedItems = displayedItems.filter(item =>
+      filters.categories.includes(item.productModel.productType)
+    );
+  }
+  const wishlistItemsDisplay = displayedItems.map(wishlistItem => (
+    <WishlistItem item={wishlistItem} key={wishlistItem.id} />
   ));
   return (
     <div className="wishlist">
