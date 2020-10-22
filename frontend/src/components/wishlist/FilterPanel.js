@@ -13,7 +13,7 @@ export const FilterPanel = ({ closeMenu, menuRef }) => {
   const filters = useSelector(state => state.wishlistFilter);
   useEffect(() => {
     const fetchSites = async () => {
-      const url = "lookukps/data/WEBSITE";
+      const url = "lookups/data/WEBSITE";
       const response = await sendAuthenticatedRequest(url, accessToken);
       const sitesResponse = await response.json();
       setSites(sitesResponse);
