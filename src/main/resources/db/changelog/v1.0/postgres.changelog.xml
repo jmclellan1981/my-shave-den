@@ -12,4 +12,5 @@
 		<include relativeToChangelogFile="true" file="postgres/create_baseline_tables.sql" />
 		<include relativeToChangelogFile="true" file="postgres/insert_menu_items.sql" />
 		<include relativeToChangelogFile="true" file="postgres/insert_lookups.sql" />
+		<include relativeToChangelogFile="true" file="postgres/insert_additional_lookups.sql" />
 </databaseChangeLog>

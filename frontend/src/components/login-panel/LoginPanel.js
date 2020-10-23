@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { sendAuthenticatedRequest } from "../../helpers/ajaxHelpers";
 import "./login-panel.css";
 
 const ACCESS_TOKEN = "myShaveDenAccessToken";
@@ -9,16 +8,6 @@ const ACCESS_TOKEN = "myShaveDenAccessToken";
 const LoginPanel = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const testEndpoint = token => {
-    const url = "/wishlist/item";
-    const body = {
-      description: "Test wishlist item",
-      productId: "testId",
-      url: "www.test.com",
-      site: "MAGGARDS"
-    };
-    sendAuthenticatedRequest(url, token, "POST", body);
-  };
 
   const saveTokenAndAlertExtension = data => {
     localStorage.setItem(ACCESS_TOKEN, data.accessToken);
@@ -37,25 +26,22 @@ const LoginPanel = () => {
     const url = "api/auth/login";
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    //const email = document.getElementById("email").value;
     const data = { username, password };
 
     const response = await fetch(url, {
-      method: "POST", // or 'PUT'
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
       body: JSON.stringify(data)
     });
     const responseData = await response.json();
     saveTokenAndAlertExtension(responseData);
-
-    //clearValues();
   };
   return (
     <div className="login-container">

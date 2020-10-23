@@ -1,0 +1,41 @@
+.wishlist-header {
+  display: flex;
+  width: 60%;
+  align-items: center;
+}
+
+.wishlist-header-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  transition: background-color 500ms linear;
+  cursor: pointer;
+}
+
+.wishlist-header-menu:hover {
+  background-color: lightgray;
+  color: black;
+  transition: background-color 500ms linear;
+}
+
+.header-menu-option {
+  cursor: pointer;
+}
+
+.sort-by-panel,
+.filter-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: 0.5rem;
+  background-color: lightgray;
+}
+
+.selected {
+  background-color: lightgray;
+}
+
+.header-menu-option:hover {
+  background-color: blanchedalmond;
+}

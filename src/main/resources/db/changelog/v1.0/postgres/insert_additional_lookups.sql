@@ -1,0 +1,2 @@
+INSERT INTO lookup_data(id, date_created, date_modified, data_name, data_description, lookup_type_id)
+VALUES(uuid_generate_v4(), now(), now(), 'WEST_COAST', 'West Coast Shaving', (SELECT id FROM lookup_type WHERE type_name='WEBSITE'));

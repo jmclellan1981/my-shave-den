@@ -3,7 +3,10 @@ package com.myshaveden.controllers;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,15 +34,15 @@ public class AuthenticationController {
 
   @Autowired
   public AuthenticationController(AppUserService userService, AuthenticationManager authenticationManager,
-      JwtTokenProvider jwtTokenProvider) {
+      JwtTokenProvider jwtTokenProvider, ApplicationEventPublisher eventPublisher) {
     this.userService = userService;
     this.authenticationManager = authenticationManager;
     this.tokenProvider = jwtTokenProvider;
   }
 
   @PostMapping("/register")
-  public ResponseEntity<AppUserModel> registerUser(@RequestBody RegistrationRequest registrationRequest)
-      throws URISyntaxException {
+  public ResponseEntity<AppUserModel> registerUser(@RequestBody RegistrationRequest registrationRequest,
+      HttpServletRequest request) throws URISyntaxException {
     AppUserModel newUser = userService.registerUser(registrationRequest);
     return ResponseEntity.created(new URI("/" + newUser.getId())).body(newUser);
   }

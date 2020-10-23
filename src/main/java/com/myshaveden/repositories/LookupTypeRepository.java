@@ -8,4 +8,6 @@ import com.myshaveden.domain.LookupType;
 
 public interface LookupTypeRepository extends JpaRepository<LookupType, UUID> {
 
+  public LookupType findByTypeName(String typeName);
+
 }

@@ -5,8 +5,6 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Notifications from "@material-ui/icons/Notifications";
 import SiteSearch from "../site-search";
 import ProfileQuickView from "../profile-quick-view";
-import { ACCESS_TOKEN } from "../login-panel";
-import { menuActions } from "./menu-actions";
 import "./menu-bar.css";
 
 const padding = { "padding-left": "5px", "padding-right": "5px" };
