@@ -47,8 +47,8 @@ public class WishlistItemModel {
       return this;
     }
 
-    public Builder withProduct(ProductModel product) {
-      this.productModel = product;
+    public Builder withProductModel(ProductModel productModel) {
+      this.productModel = productModel;
       return this;
     }
 
