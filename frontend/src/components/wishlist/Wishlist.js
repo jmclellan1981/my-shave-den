@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { sendAuthenticatedRequest } from "../../helpers/ajaxHelpers";
 import WishlistItem from "./WishlistItem";
 import WishlistHeader from "./WishlistHeader";
 import { NEW_WISHLIST_ITEMS } from "../../reducers";
+import { ACCESS_TOKEN } from "../login-panel";
 import "./wishlist.css";
 
 const Wishlist = ({ userId }) => {
+  const history = useHistory();
   const accessToken = useSelector(state => state.accessToken);
   const wishlistItems = useSelector(state => state.wishlistItems);
   const wishlistSort = useSelector(state => state.wishlistSort);
@@ -17,6 +20,11 @@ const Wishlist = ({ userId }) => {
     const requestWishlist = async () => {
       const url = "/wishlist";
       const response = await sendAuthenticatedRequest(url, accessToken);
+      if (response.status === 401) {
+        localStorage.removeItem(ACCESS_TOKEN);
+        dispatch({ type: "UPDATE_ACCESS_TOKEN", value: null });
+        history.push("/login");
+      }
       const wishlist = await response.json();
       dispatch({ type: NEW_WISHLIST_ITEMS, payload: wishlist.wishlistItems });
     };
