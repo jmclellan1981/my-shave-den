@@ -46,6 +46,7 @@ public class DefaultWishlistService implements WishlistService {
       wishlistItem.setDisplayOrder(displayOrder);
       Product product = findProduct(wishlistItemModel.getProductModel());
       wishlistItem.setProduct(product);
+      wishlistItem.setActive(true);
       appUser.getWishlist().getWishlistItems().add(wishlistItem);
       wishlistItem.setWishlist(appUser.getWishlist());
       userRepository.save(appUser);
