@@ -15,6 +15,7 @@ import com.myshaveden.domain.WishlistItem;
 import com.myshaveden.repositories.AppUserRepository;
 import com.myshaveden.repositories.LookupDataRepository;
 import com.myshaveden.repositories.ProductRepository;
+import com.myshaveden.repositories.WishlistItemRepository;
 import com.myshaveden.viewmodels.ProductModel;
 import com.myshaveden.viewmodels.WishlistItemModel;
 import com.myshaveden.viewmodels.WishlistModel;
@@ -25,13 +26,15 @@ public class DefaultWishlistService implements WishlistService {
   private AppUserRepository userRepository;
   private ProductRepository productRepository;
   private LookupDataRepository lookupDataRepository;
+  private WishlistItemRepository wishlistItemRepository;
 
   @Autowired
   public DefaultWishlistService(AppUserRepository userRepository, ProductRepository productRepository,
-      LookupDataRepository lookupDataRepository) {
+      LookupDataRepository lookupDataRepository, WishlistItemRepository wishlistItemRepository) {
     this.userRepository = userRepository;
     this.productRepository = productRepository;
     this.lookupDataRepository = lookupDataRepository;
+    this.wishlistItemRepository = wishlistItemRepository;
   }
 
   @Override
@@ -90,14 +93,16 @@ public class DefaultWishlistService implements WishlistService {
     AppUser appUser = userRepository.findByUsername(username);
     List<WishlistItemModel> wishlistItems = new ArrayList<>();
     for (WishlistItem item : appUser.getWishlist().getWishlistItems()) {
-      ProductModel product = new ProductModel.Builder().withImageSource(item.getProduct().getImageSource())
-          .withProductId(item.getProduct().getProductId())
-          .withProductType(item.getProduct().getProductType().getDataName())
-          .withId(item.getProduct().getId().toString()).withUrl(item.getProduct().getUrl())
-          .withSite(item.getProduct().getSite().getDataName()).withTitle(item.getProduct().getTitle()).build();
-      WishlistItemModel itemModel = new WishlistItemModel.Builder().withDisplayOrder(item.getDisplayOrder())
-          .withProductModel(product).withDateCreated(item.getDateCreated()).withId(item.getId().toString()).build();
-      wishlistItems.add(itemModel);
+      if (item.isActive()) {
+        ProductModel product = new ProductModel.Builder().withImageSource(item.getProduct().getImageSource())
+            .withProductId(item.getProduct().getProductId())
+            .withProductType(item.getProduct().getProductType().getDataName())
+            .withId(item.getProduct().getId().toString()).withUrl(item.getProduct().getUrl())
+            .withSite(item.getProduct().getSite().getDataName()).withTitle(item.getProduct().getTitle()).build();
+        WishlistItemModel itemModel = new WishlistItemModel.Builder().withDisplayOrder(item.getDisplayOrder())
+            .withProductModel(product).withDateCreated(item.getDateCreated()).withId(item.getId().toString()).build();
+        wishlistItems.add(itemModel);
+      }
     }
     WishlistModel wishlistViewModel = new WishlistModel.Builder().withWishlistItems(wishlistItems).build();
     return wishlistViewModel;
@@ -114,6 +119,13 @@ public class DefaultWishlistService implements WishlistService {
       }
     }
     return exists;
+  }
+
+  @Override
+  public void deleteWishlistItem(String id) {
+    WishlistItem item = wishlistItemRepository.findById(UUID.fromString(id)).get();
+    item.setActive(false);
+    wishlistItemRepository.save(item);
   }
 
 }

@@ -13,4 +13,5 @@
 		<include relativeToChangelogFile="true" file="postgres/insert_menu_items.sql" />
 		<include relativeToChangelogFile="true" file="postgres/insert_lookups.sql" />
 		<include relativeToChangelogFile="true" file="postgres/insert_additional_lookups.sql" />
+		<include relativeToChangelogFile="true" file="postgres/add_is_active_to_wishlist_item.sql" />
 </databaseChangeLog>

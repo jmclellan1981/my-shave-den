@@ -9,4 +9,6 @@ public interface WishlistService {
   public WishlistModel findWishlist(String username);
 
   public Boolean itemExists(String username, String site, String productId);
+
+  public void deleteWishlistItem(String id);
 }
