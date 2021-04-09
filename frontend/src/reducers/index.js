@@ -18,7 +18,7 @@ const accessToken = (
 
 const wishlistItems = (state = [], { type, payload }) => {
   if (type === NEW_WISHLIST_ITEMS) {
-    return payload;
+    return payload || state;
   }
   if (type === ADD_WISHLIST_ITEM) {
     return [...state, payload];
@@ -43,13 +43,13 @@ const wishlistFilter = (
         ? state.sites
         : payload.isSelected
         ? [...state.sites, payload.option.option]
-        : state.sites.filter(site => site !== payload.option);
+        : state.sites.filter((site) => site !== payload.option);
     const categories =
       payload.type !== "CATEGORY"
         ? state.categories
         : payload.isSelected
         ? [...state.categories, payload.option]
-        : state.categories.filter(site => site !== payload.option);
+        : state.categories.filter((site) => site !== payload.option);
     return { sites, categories };
   }
   return state;
@@ -59,12 +59,12 @@ export {
   NEW_WISHLIST_ITEMS,
   UPDATE_ACCESS_TOKEN,
   UPDATE_WISHLIST_SORT,
-  UPDATE_WISHLIST_FILTER
+  UPDATE_WISHLIST_FILTER,
 };
 
 export default combineReducers({
   accessToken,
   wishlistItems,
   wishlistSort,
-  wishlistFilter
+  wishlistFilter,
 });
