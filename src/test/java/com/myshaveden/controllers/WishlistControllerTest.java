@@ -63,6 +63,12 @@ public class WishlistControllerTest {
         return false;
       }
 
+      @Override
+      public void deleteWishlistItem(String id) {
+        // TODO Auto-generated method stub
+
+      }
+
     };
   }
 }

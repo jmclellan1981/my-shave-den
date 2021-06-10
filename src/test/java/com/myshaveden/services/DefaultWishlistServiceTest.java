@@ -19,6 +19,7 @@ import com.myshaveden.domain.WishlistItem;
 import com.myshaveden.repositories.AppUserRepository;
 import com.myshaveden.repositories.LookupDataRepository;
 import com.myshaveden.repositories.ProductRepository;
+import com.myshaveden.repositories.WishlistItemRepository;
 import com.myshaveden.viewmodels.ProductModel;
 import com.myshaveden.viewmodels.WishlistItemModel;
 import com.myshaveden.viewmodels.WishlistModel;
@@ -29,7 +30,14 @@ public class DefaultWishlistServiceTest {
 
   @BeforeEach
   public void setup() {
-    service = new DefaultWishlistService(getUserRepository(), getProductRepository(), getLookupDataRepository());
+    service = new DefaultWishlistService(getUserRepository(), getProductRepository(), getLookupDataRepository(),
+        getWishlistItemRepository());
+  }
+
+  private WishlistItemRepository getWishlistItemRepository() {
+    WishlistItemRepository repo = Mockito.mock(WishlistItemRepository.class);
+
+    return repo;
   }
 
   private ProductRepository getProductRepository() {
