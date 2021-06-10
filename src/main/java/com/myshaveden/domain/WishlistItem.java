@@ -17,6 +17,7 @@ public class WishlistItem extends BaseEntity {
   private Wishlist wishlist;
 
   private int displayOrder;
+  private boolean isActive;
 
   public Wishlist getWishlist() {
     return wishlist;
@@ -40,6 +41,14 @@ public class WishlistItem extends BaseEntity {
 
   public void setDisplayOrder(int displayOrder) {
     this.displayOrder = displayOrder;
+  }
+
+  public boolean isActive() {
+    return isActive;
+  }
+
+  public void setActive(boolean isActive) {
+    this.isActive = isActive;
   }
 
 }

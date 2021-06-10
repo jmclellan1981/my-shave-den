@@ -5,6 +5,7 @@ const ADD_WISHLIST_ITEM = "ADD_WISHLIST_ITEM";
 const UPDATE_ACCESS_TOKEN = "UPDATE_ACCESS_TOKEN";
 const UPDATE_WISHLIST_SORT = "UPDATE_WISHLIST_SORT";
 const UPDATE_WISHLIST_FILTER = "UPDATE_WISHLIST_FILTER";
+const REMOVE_WISHLIST_ITEM = "REMOVE_WISHLIST_ITEM";
 
 const accessToken = (
   state = localStorage.getItem(ACCESS_TOKEN),
@@ -22,6 +23,9 @@ const wishlistItems = (state = [], { type, payload }) => {
   }
   if (type === ADD_WISHLIST_ITEM) {
     return [...state, payload];
+  }
+  if (type === REMOVE_WISHLIST_ITEM) {
+    return state.filter(item => item.id !== payload);
   }
   return state;
 };
@@ -59,7 +63,8 @@ export {
   NEW_WISHLIST_ITEMS,
   UPDATE_ACCESS_TOKEN,
   UPDATE_WISHLIST_SORT,
-  UPDATE_WISHLIST_FILTER
+  UPDATE_WISHLIST_FILTER,
+  REMOVE_WISHLIST_ITEM
 };
 
 export default combineReducers({
